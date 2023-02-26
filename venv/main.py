@@ -10,10 +10,10 @@ class Youtube:
     def __init__(self, channel_id):
         self.channel_id = channel_id
         load_dotenv()
-        api_key: str = os.getenv('YOUTUBE_KEY')
+        api_key = 'AIzaSyB_zRuBrxjY-cBxVeGZPzn7JeEofSDpe5c'
         youtube = build('youtube', 'v3', developerKey=api_key)
         self.channel_info = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
-        self.tittle = self.channel_info['items'][0]['snippet']['tittle']
+        self.tittle = self.channel_info['items'][0]['snippet']['title']
         self.description = self.channel_info['items'][0]['snippet']['description']
         self.url = 'https://www.youtube.com/' + self.channel_id
         self.subscriber_count = self.channel_info['items'][0]['statistics']['subscriberCount']
