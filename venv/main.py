@@ -26,9 +26,9 @@ class Youtube:
 
     def to_json(self):
         data = {
-            "title": self.channel_title
+            "title": self.channel_info
         }
-        with open("filename.json", "w", encoding="UTF-8") as file:
+        with open('filename.json', "w", encoding="UTF-8") as file:
             json.dump(data, file, indent=2, ensure_ascii=False)
 
     def get_service(self):
@@ -45,4 +45,4 @@ print(y.url)
 #<googleapiclient.discovery.Resource object at 0x000002B1E54F9750>
 
 # создать файл 'vdud.json' в данными по каналу
-y.to_json('vdud.json')
+y.to_json()
