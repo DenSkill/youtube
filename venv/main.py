@@ -8,22 +8,41 @@ from dotenv import load_dotenv
 
 class Youtube:
     def __init__(self, channel_id):
-        self.channel_id = channel_id
+        self.__channel_id = channel_id
         load_dotenv()
         api_key: str = os.environ.get('api_key')
         youtube = build('youtube', 'v3', developerKey=api_key)
         self.channel_info = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
-        self.tittle = self.channel_info['items'][0]['snippet']['title']
+        self.title = self.channel_info['items'][0]['snippet']['title']
         self.description = self.channel_info['items'][0]['snippet']['description']
-        self.url = 'https://www.youtube.com/' + self.channel_id
+        self.url = 'https://www.youtube.com/' + self.__channel_id
         self.subscriber_count = self.channel_info['items'][0]['statistics']['subscriberCount']
         self.video_count = self.channel_info['items'][0]['statistics']['videoCount']
         self.view_count = self.channel_info['items'][0]['statistics']['viewCount']
-        data = self.tittle = self.description + self.url + self.subscriber_count + self.video_count + self.view_count
+        data = self.title = self.description + self.url + self.subscriber_count + self.video_count + self.view_count
 
     def print_info(self):
         print(json.dumps(self.channel_info, indent=2, ensure_ascii=False))
 
+    def to_json(self):
+        data = {
+            "title": self.channel_title
+        }
+        with open("filename.json", "w", encoding="UTF-8") as file:
+            json.dump(data, file, indent=2, ensure_ascii=False)
+
+    def get_service(self):
+        pass
 
 y = Youtube('UCMCgOm8GZkHp8zJ6l7_hIuA')
 y.print_info()
+print(y.title)
+print(y.video_count)
+print(y.url)
+#print(y.get_service())
+# можем получить объект для работы с API вне класса
+#print(Channel.get_service())
+#<googleapiclient.discovery.Resource object at 0x000002B1E54F9750>
+
+# создать файл 'vdud.json' в данными по каналу
+y.to_json('vdud.json')
