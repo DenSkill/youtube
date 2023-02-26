@@ -31,18 +31,7 @@ class Youtube:
         with open('filename.json', "w", encoding="UTF-8") as file:
             json.dump(data, file, indent=2, ensure_ascii=False)
 
+    @classmethod
     def get_service(self):
-        pass
-
-y = Youtube('UCMCgOm8GZkHp8zJ6l7_hIuA')
-y.print_info()
-print(y.title)
-print(y.video_count)
-print(y.url)
-#print(y.get_service())
-# можем получить объект для работы с API вне класса
-#print(Channel.get_service())
-#<googleapiclient.discovery.Resource object at 0x000002B1E54F9750>
-
-# создать файл 'vdud.json' в данными по каналу
-y.to_json()
+        service = build('youtube', 'v3', developerKey = os.environ.get('api_key'))
+        return service
