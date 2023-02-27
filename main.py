@@ -28,7 +28,7 @@ class Youtube:
         data = {
             "title": self.channel_info
         }
-        with open('filename.json', "w", encoding="UTF-8") as file:
+        with open('venv/filename.json', "w", encoding="UTF-8") as file:
             json.dump(data, file, indent=2, ensure_ascii=False)
 
     @classmethod
