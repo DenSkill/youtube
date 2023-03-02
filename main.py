@@ -35,3 +35,20 @@ class Youtube:
     def get_service(self):
         service = build('youtube', 'v3', developerKey = os.environ.get('api_key'))
         return service
+
+    def __str__(self) -> str:
+        return f'{self.title}'
+
+ch1 = Youtube('UCMCgOm8GZkHp8zJ6l7_hIuA')  # вДудь
+ch2 = Youtube('UC1eFXmJNkjITxPFWTy6RsWg')  # Редакция
+print(ch1)
+print(ch2)
+
+#ch1 > ch2
+#True
+
+#ch1 < ch2
+#False
+
+#ch1 + ch2
+#13940000
