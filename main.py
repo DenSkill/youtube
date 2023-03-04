@@ -19,7 +19,7 @@ class Youtube:
         self.subscriber_count = self.channel_info['items'][0]['statistics']['subscriberCount']
         self.video_count = self.channel_info['items'][0]['statistics']['videoCount']
         self.view_count = self.channel_info['items'][0]['statistics']['viewCount']
-        data = self.title = self.description + self.url + self.subscriber_count + self.video_count + self.view_count
+        # data = self.title = self.description + self.url + self.subscriber_count + self.video_count + self.view_count
 
     def print_info(self):
         print(json.dumps(self.channel_info, indent=2, ensure_ascii=False))
