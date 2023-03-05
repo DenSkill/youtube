@@ -19,7 +19,9 @@ class Youtube:
         self.subscriber_count = self.channel_info['items'][0]['statistics']['subscriberCount']
         self.video_count = self.channel_info['items'][0]['statistics']['videoCount']
         self.view_count = self.channel_info['items'][0]['statistics']['viewCount']
-        # data = self.title = self.description + self.url + self.subscriber_count + self.video_count + self.view_count
+        #self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        #self.playlist_name = self.playlist['items'][0]['snippet']['title']
+        # data = self.title + self.description + self.url + self.subscriber_count + self.video_count + self.view_count
 
     def print_info(self):
         print(json.dumps(self.channel_info, indent=2, ensure_ascii=False))
@@ -50,10 +52,16 @@ class Youtube:
         return int(self.subscriber_count) + int(other.subscriber_count)
 
 
-ch1 = Youtube('UCMCgOm8GZkHp8zJ6l7_hIuA')  # вДудь
-ch2 = Youtube('UC1eFXmJNkjITxPFWTy6RsWg')  # Редакция
-print(ch1)
-print(ch2)
-print(ch1 > ch2)
-print(ch1 < ch2)
-print(ch1 + ch2)
+class Video:
+    pass
+class PLVideo(Video):
+    def __init__(self, video_id, playlist_id):
+        self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        self.playlist_name = self.playlist['items'][0]['snippet']['title']
+
+    def get_video_in_playlist(cls, video_id: str, playlist_id: str) -> dict:
+        """Получает данные о видео в плейлисте"""
+        video_in_playlist = cls.get_service().playlistItems().list(videoId=video_id,
+                                                                   playlistId=playlist_id,
+                                                                   part='snippet').execute()
+        return video_in_playlist
