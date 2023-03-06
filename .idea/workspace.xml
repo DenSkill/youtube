@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51787f29-af86-4ef1-8f45-6c9d2e305291" name="Changes" comment="4hw start">
+    <list default="true" id="51787f29-af86-4ef1-8f45-6c9d2e305291" name="Changes" comment="copy &#10;don't working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -170,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678030363860</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="copy &#10;don't working">
+      <created>1678124106695</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1678124106695</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -199,6 +206,7 @@
     <MESSAGE value="tittle?" />
     <MESSAGE value="go go go" />
     <MESSAGE value="4hw start" />
-    <option name="LAST_COMMIT_MESSAGE" value="4hw start" />
+    <MESSAGE value="copy &#10;don't working" />
+    <option name="LAST_COMMIT_MESSAGE" value="copy &#10;don't working" />
   </component>
 </project>

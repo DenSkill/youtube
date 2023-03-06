@@ -54,6 +54,7 @@ class Youtube:
 
 class Video:
     __API_KEY: str = os.getenv('api_key')
+    #__API_KEY: str = os.environ.get('api_key')
 
     def __init__(self, video_id):
         self.__video_id = video_id
@@ -91,9 +92,9 @@ class PLVideo(Video):
                                                                    part='snippet').execute()
         return video_in_playlist
 
-video1 = Video('9lO06Zxhu88')
+#video1 = Video('9lO06Zxhu88')
 video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
-print(video1)
+#print(video1)
 #Как устроена IT-столица мира / Russian Silicon Valley (English subs)
 print(video2)
 #Пушкин: наше все? (Литература)
