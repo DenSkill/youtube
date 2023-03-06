@@ -53,10 +53,35 @@ class Youtube:
 
 
 class Video:
-    pass
+    __API_KEY: str = os.getenv('api_key')
+
+    def __init__(self, video_id):
+        self.__video_id = video_id
+        self._init_from_api()
+
+    def _init_from_api(self):
+        video_response = self.get_service().videos().list(part='snippet,statistics',
+                                                          id=self.__video_id
+                                                          ).execute()
+
+        self.title = video_response['items'][0]['snippet']['title']
+        self.url = f'https://youtu.be/{self.__video_id}'
+        self.view_count = video_response['items'][0]['statistics']['viewCount']
+        self.like_count = video_response['items'][0]['statistics']['likeCount']
+
+    @classmethod
+    def get_service(cls):
+        service = build('youtube', 'v3', developerKey=cls.__API_KEY)
+        return service
+
+    def __str__(self) -> str:
+        return self.title
+
+
 class PLVideo(Video):
     def __init__(self, video_id, playlist_id):
-        self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        super().__init__(video_id)
+        self.playlist = self.get_service().playlists().list(id=playlist_id, part='snippet').execute()
         self.playlist_name = self.playlist['items'][0]['snippet']['title']
 
     def get_video_in_playlist(cls, video_id: str, playlist_id: str) -> dict:
@@ -65,3 +90,10 @@ class PLVideo(Video):
                                                                    playlistId=playlist_id,
                                                                    part='snippet').execute()
         return video_in_playlist
+
+video1 = Video('9lO06Zxhu88')
+video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
+print(video1)
+#Как устроена IT-столица мира / Russian Silicon Valley (English subs)
+print(video2)
+#Пушкин: наше все? (Литература)
