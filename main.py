@@ -11,6 +11,7 @@ class Youtube:
         self.__channel_id = channel_id
         load_dotenv()
         api_key: str = os.environ.get('api_key')
+        # api_key = 'AIzaSyB_zRuBrxjY-cBxVeGZPzn7JeEofSDpe5c'
         youtube = build('youtube', 'v3', developerKey=api_key)
         self.channel_info = youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
         self.title = self.channel_info['items'][0]['snippet']['title']
@@ -19,8 +20,8 @@ class Youtube:
         self.subscriber_count = self.channel_info['items'][0]['statistics']['subscriberCount']
         self.video_count = self.channel_info['items'][0]['statistics']['videoCount']
         self.view_count = self.channel_info['items'][0]['statistics']['viewCount']
-        #self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
-        #self.playlist_name = self.playlist['items'][0]['snippet']['title']
+        # self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        # self.playlist_name = self.playlist['items'][0]['snippet']['title']
         # data = self.title + self.description + self.url + self.subscriber_count + self.video_count + self.view_count
 
     def print_info(self):
@@ -53,8 +54,8 @@ class Youtube:
 
 
 class Video:
+    load_dotenv()
     __API_KEY: str = os.getenv('api_key')
-    #__API_KEY: str = os.environ.get('api_key')
 
     def __init__(self, video_id):
         self.__video_id = video_id
@@ -92,9 +93,10 @@ class PLVideo(Video):
                                                                    part='snippet').execute()
         return video_in_playlist
 
-#video1 = Video('9lO06Zxhu88')
+
+video1 = Video('9lO06Zxhu88')
 video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
-#print(video1)
+print(video1)
 #Как устроена IT-столица мира / Russian Silicon Valley (English subs)
 print(video2)
-#Пушкин: наше все? (Литература)
+# Пушкин: наше все? (Литература)
