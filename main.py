@@ -1,8 +1,9 @@
 import os
-
+from datetime import datetime
+import isodate as isodate
 from googleapiclient.discovery import build
 import json
-
+import datetime
 from dotenv import load_dotenv
 
 
@@ -94,9 +95,35 @@ class PLVideo(Video):
         return video_in_playlist
 
 
-video1 = Video('9lO06Zxhu88')
-video2 = PLVideo('BBotskuyw_M', 'PL7Ntiz7eTKwrqmApjln9u4ItzhDLRtPuD')
-print(video1)
-#Как устроена IT-столица мира / Russian Silicon Valley (English subs)
-print(video2)
-# Пушкин: наше все? (Литература)
+class PlayList:
+    load_dotenv()
+
+    def __init__(self, playlist_id):
+        self.playlist_id = playlist_id
+        api_key: str = os.getenv('api_key')
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        self.playlist = youtube.playlists().list(id=playlist_id, part='snippet').execute()
+        self.playlist_videos = youtube.playlistItems().list(playlistId=playlist_id, part='contentDetails',
+                                                            maxResults=50).execute()
+        self.title = self.playlist['items'][0]['snippet']['title']
+
+    @property
+    def total_duration(self):
+        api_key: str = os.getenv('api_key')
+        youtube = build('youtube', 'v3', developerKey=api_key)
+        video_ids: list[str] = [video['contentDetails']['videoId'] for video in self.playlist_videos['items']]
+        response = youtube.videos().list(part='contentDetails,statistics', id=','.join(video_ids)).execute()
+
+        total_duration = datetime.timedelta()
+        for video in response['items']:
+            iso_8601_duration = video['contentDetails']['duration']
+            duration = isodate.parse_duration(iso_8601_duration)
+            total_duration += duration
+        return total_duration
+
+
+pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
+print(pl.title)
+duration = pl.total_duration
+print(duration)
+print(type(duration))
