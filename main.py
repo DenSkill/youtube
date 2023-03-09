@@ -6,11 +6,12 @@ import json
 import datetime
 from dotenv import load_dotenv
 
+load_dotenv()
+
 
 class Youtube:
     def __init__(self, channel_id):
         self.__channel_id = channel_id
-        load_dotenv()
         api_key: str = os.environ.get('api_key')
         # api_key = 'AIzaSyB_zRuBrxjY-cBxVeGZPzn7JeEofSDpe5c'
         youtube = build('youtube', 'v3', developerKey=api_key)
@@ -55,7 +56,6 @@ class Youtube:
 
 
 class Video:
-    load_dotenv()
     __API_KEY: str = os.getenv('api_key')
 
     def __init__(self, video_id):
@@ -96,7 +96,6 @@ class PLVideo(Video):
 
 
 class PlayList:
-    load_dotenv()
 
     def __init__(self, playlist_id):
         self.playlist_id = playlist_id
@@ -121,9 +120,3 @@ class PlayList:
             total_duration += duration
         return total_duration
 
-
-pl = PlayList('PLguYHBi01DWr4bRWc4uaguASmo7lW4GCb')
-print(pl.title)
-duration = pl.total_duration
-print(duration)
-print(type(duration))
